@@ -1,0 +1,140 @@
+﻿@page "/pages"
+@using Microsoft.Extensions.Localization
+@using CMS.Localization
+@using CMS.Services
+@using CMS.Services.Dtos
+@inject ICMSAppService CMSAppService
+@inject IStringLocalizer<CMSResource> L
+@inject AbpBlazorMessageLocalizerHelper<CMSResource> LH
+@inject Volo.Abp.UI.Navigation.IMenuManager MenuManager
+@inject NavigationManager NavigationManager
+
+@inherits CMSComponentBase
+
+<Card>
+    <CardHeader>
+        <Row Class="justify-content-between">
+            <Column ColumnSize="ColumnSize.IsAuto">
+                <h2>@L["Pages"]</h2>
+            </Column>
+            <Column ColumnSize="ColumnSize.IsAuto">
+                    <Button Color="Color.Primary"
+                            Clicked="OpenCreateCMSModal">
+                    @L["NewPage"]
+                    </Button>
+            </Column>
+        </Row>
+    </CardHeader>
+
+    <CardBody>
+        <DataGrid TItem="CMSDto"
+                  Data="CMSList"
+                  ReadData="OnDataGridReadAsync"
+                  TotalItems="TotalCount"
+                  ShowPager="true"
+                  PageSize="PageSize">
+            <DataGridColumns>
+                <DataGridColumn Width="150px"
+                                TItem="CMSDto"
+                                Field="@nameof(CMSDto.Id)"
+                                Sortable="false"
+                                Caption="@L["Actions"]">
+                    <DisplayTemplate>
+                        <Dropdown>
+                            <DropdownToggle Color="Color.Primary">
+                                @L["Actions"]
+                            </DropdownToggle>
+                            <DropdownMenu>
+                                    <DropdownItem Clicked="() => OpenEditCMSModal(context)">
+                                        @L["Edit"]
+                                    </DropdownItem>
+                                    <DropdownItem Clicked="() => DeleteCMSAsync(context)">
+                                        @L["Delete"]
+                                    </DropdownItem>
+                            </DropdownMenu>
+                        </Dropdown>
+                    </DisplayTemplate>
+                </DataGridColumn>
+                <DataGridColumn TItem="CMSDto"
+                                Field="@nameof(CMSDto.PageName)"
+                                Caption="@L["Name"]"></DataGridColumn>
+            </DataGridColumns>
+        </DataGrid>
+    </CardBody>
+</Card>
+
+<Modal @ref="CreateCMSModal">
+    <ModalBackdrop />
+    <ModalContent IsCentered="true">
+        <Form>
+            <ModalHeader>
+                <ModalTitle>@L["NewCMS"]</ModalTitle>
+                <CloseButton Clicked="CloseCreateCMSModal" />
+            </ModalHeader>
+            <ModalBody>
+                <Validations @ref="@CreateValidationsRef" Model="@NewCMS" ValidateOnLoad="false">
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Name"]</FieldLabel>
+                            <TextEdit @bind-Text="@NewCMS.PageName">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                </Validations>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary"
+                        Clicked="CloseCreateCMSModal">
+                    @L["Cancel"]
+                </Button>
+                <Button Color="Color.Primary"
+                        Type="@ButtonType.Submit"
+                        PreventDefaultOnSubmit="true"
+                        Clicked="CreateCMSAsync">
+                    @L["Save"]
+                </Button>
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>
+
+<Modal @ref="EditCMSModal">
+    <ModalBackdrop />
+    <ModalContent IsCentered="true">
+        <Form>
+            <ModalHeader>
+                        <ModalTitle>@EditingCMS.PageName</ModalTitle>
+                        <CloseButton Clicked="CloseEditCMSModal" />
+                    </ModalHeader>
+            <ModalBody>
+                <Validations @ref="@EditValidationsRef" Model="@EditingCMS" ValidateOnLoad="false">
+                    <Validation MessageLocalizer="@LH.Localize">
+                        <Field>
+                            <FieldLabel>@L["Name"]</FieldLabel>
+                            <TextEdit @bind-Text="@EditingCMS.PageName">
+                                <Feedback>
+                                    <ValidationError/>
+                                </Feedback>
+                            </TextEdit>
+                        </Field>
+                    </Validation>
+                </Validations>
+            </ModalBody>
+            <ModalFooter>
+                <Button Color="Color.Secondary"
+                        Clicked="CloseEditCMSModal">
+                    @L["Cancel"]
+                </Button>
+                <Button Color="Color.Primary"
+                        Type="@ButtonType.Submit"
+                        PreventDefaultOnSubmit="true"
+                        Clicked="UpdateCMSAsync">
+                    @L["Save"]
+                </Button>
+            </ModalFooter>
+        </Form>
+    </ModalContent>
+</Modal>

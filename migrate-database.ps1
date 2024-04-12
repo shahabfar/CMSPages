@@ -1,0 +1,1 @@
+dotnet run --project CMS.Host --migrate-database

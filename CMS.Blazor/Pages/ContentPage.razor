@@ -1,0 +1,33 @@
+﻿@page "/content/{Id}"
+@using CMS.Services
+@inject ICMSAppService CMSAppService
+@inject NavigationManager NavigationManager
+
+@inherits CMSComponentBase
+
+<h3>Content Page</h3>
+
+<Card>
+    <CardBody>
+        @if (CMSDto != null)
+        {
+            <CardTitle Size="3">
+                @CMSDto.PageName
+            </CardTitle>
+            <CardText>
+                <SfRichTextEditor @ref="RteObj" Value="@CMSDto.PageContent" />
+            </CardText>
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
+    </CardBody>
+    <CardFooter>     
+        <Button Color="Color.Primary" Clicked="SaveContent">
+        Save
+    </Button></CardFooter>
+</Card>
+
+
+

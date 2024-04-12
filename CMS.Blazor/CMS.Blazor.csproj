@@ -1,0 +1,49 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>CMS</RootNamespace>
+    <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Blazorise.Bootstrap5" Version="1.4.1" />
+    <PackageReference Include="Blazorise.Icons.FontAwesome" Version="1.4.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.0" />
+    <PackageReference Include="Syncfusion.Blazor.RichTextEditor" Version="25.1.39" />
+    <PackageReference Include="Syncfusion.Blazor.Themes" Version="25.1.39" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.AspNetCore.Components.WebAssembly.LeptonXLiteTheme" Version="3.1.*-*" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Autofac.WebAssembly" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Volo.Abp.Identity.Blazor.WebAssembly" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.TenantManagement.Blazor.WebAssembly" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.SettingManagement.Blazor.WebAssembly" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.Account.HttpApi.Client" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.Identity.HttpApi.Client" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.PermissionManagement.HttpApi.Client" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.TenantManagement.HttpApi.Client" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.FeatureManagement.HttpApi.Client" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.SettingManagement.HttpApi.Client" Version="8.1.0" />
+    <PackageReference Include="Volo.Abp.OpenIddict.Domain.Shared" Version="8.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CMS.Contracts\CMS.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="$(UserProfile)\.nuget\packages\*\*\contentFiles\any\*\*.abppkg*" />
+  </ItemGroup>
+
+</Project>
